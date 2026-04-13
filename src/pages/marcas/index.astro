@@ -6,6 +6,7 @@ import { getCollection } from 'astro:content';
 const marcas = (await getCollection('marcas'))
   .filter(m => m.data.activa)
   .sort((a, b) => a.data.orden - b.data.orden);
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -32,7 +33,7 @@ const marcas = (await getCollection('marcas'))
     </div>
 
     <div class="text-center mt-12">
-      <a href="/catalogo" class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+      <a href={`${base}catalogo`} class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
         Ver catálogo general
       </a>
     </div>

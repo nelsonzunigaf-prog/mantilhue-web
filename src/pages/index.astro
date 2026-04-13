@@ -6,6 +6,7 @@ import { getCollection } from 'astro:content';
 const marcas = (await getCollection('marcas'))
   .filter(m => m.data.activa)
   .sort((a, b) => a.data.orden - b.data.orden);
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Mantilhue Alimentos — Producción y Distribución de Alimentos en Chile">
@@ -19,7 +20,7 @@ const marcas = (await getCollection('marcas'))
         Producimos y distribuimos productos alimenticios a través de nuestras marcas para cada tipo de cliente
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/catalogo" class="inline-flex items-center justify-center gap-2 bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+        <a href={`${base}catalogo`} class="inline-flex items-center justify-center gap-2 bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
           Ver catálogo
         </a>
         <a href="https://wa.me/56988074192?text=Hola%2C%20me%20interesa%20cotizar%20productos%20de%20Mantilhue%20Alimentos" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-whatsapp text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
@@ -54,7 +55,7 @@ const marcas = (await getCollection('marcas'))
         ))}
       </div>
       <div class="text-center mt-8">
-        <a href="/marcas" class="text-marques font-semibold hover:underline">Ver todas las marcas →</a>
+        <a href={`${base}marcas`} class="text-marques font-semibold hover:underline">Ver todas las marcas →</a>
       </div>
     </div>
   </section>
@@ -102,10 +103,10 @@ const marcas = (await getCollection('marcas'))
     <h2 class="font-heading font-bold text-2xl md:text-3xl mb-4">¿Listo para cotizar?</h2>
     <p class="text-base-muted text-lg mb-6">Revisa nuestro catálogo y contáctanos para recibir precios y disponibilidad.</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/catalogo" class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+      <a href={`${base}catalogo`} class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
         Ver catálogo completo
       </a>
-      <a href="/contacto" class="inline-flex items-center justify-center border-2 border-base-text text-base-text px-6 py-3 rounded-lg font-semibold hover:bg-base-text hover:text-white transition">
+      <a href={`${base}contacto`} class="inline-flex items-center justify-center border-2 border-base-text text-base-text px-6 py-3 rounded-lg font-semibold hover:bg-base-text hover:text-white transition">
         Contactar
       </a>
     </div>

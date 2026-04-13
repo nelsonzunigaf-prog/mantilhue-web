@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -80,7 +81,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- CTA -->
     <div class="text-center">
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/catalogo" class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+        <a href={`${base}catalogo`} class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
           Ver catálogo
         </a>
         <a href="https://wa.me/56988074192?text=Hola%2C%20me%20interesa%20cotizar%20productos%20de%20Mantilhue%20Alimentos" target="_blank" rel="noopener" class="inline-flex items-center justify-center bg-whatsapp text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">

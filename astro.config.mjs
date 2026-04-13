@@ -8,7 +8,7 @@ import preact from '@astrojs/preact';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nelsonzunigaf-prog.github.io',
-  base: '/mantilhue-web',
+  base: '/mantilhue-web/',
   vite: {
     plugins: [tailwindcss()]
   },

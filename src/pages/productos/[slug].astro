@@ -30,6 +30,7 @@ const catLabels: Record<string, string> = {
 };
 
 const whatsappMsg = encodeURIComponent(`Hola, me interesa cotizar: ${producto.data.nombre} (${producto.data.formato})`);
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -39,9 +40,9 @@ const whatsappMsg = encodeURIComponent(`Hola, me interesa cotizar: ${producto.da
   <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
     <!-- Breadcrumb -->
     <nav class="text-sm text-base-muted mb-6">
-      <a href="/" class="hover:text-marques">Inicio</a>
+      <a href={base} class="hover:text-marques">Inicio</a>
       <span class="mx-1">/</span>
-      <a href="/catalogo" class="hover:text-marques">Catálogo</a>
+      <a href={`${base}catalogo`} class="hover:text-marques">Catálogo</a>
       <span class="mx-1">/</span>
       <span class="text-base-text">{producto.data.nombre}</span>
     </nav>
@@ -50,7 +51,7 @@ const whatsappMsg = encodeURIComponent(`Hola, me interesa cotizar: ${producto.da
       <!-- Imagen -->
       <div class="bg-base-surface rounded-xl p-8 flex items-center justify-center">
         <img
-          src={producto.data.imagen}
+          src={`${base}${producto.data.imagen.startsWith("/") ? producto.data.imagen.slice(1) : producto.data.imagen}`}
           alt={producto.data.nombre}
           class="max-h-80 w-auto object-contain"
         />
@@ -60,7 +61,7 @@ const whatsappMsg = encodeURIComponent(`Hola, me interesa cotizar: ${producto.da
       <div>
         {marca && (
           <a
-            href={`/marcas/${marca.data.slug}`}
+            href={`${base}marcas/${marca.data.slug}`}
             class="inline-block text-sm font-semibold px-3 py-1 rounded-full mb-3"
             style={`background-color: ${marca.data.colorPrimario}; color: ${marca.data.colorTexto}`}
           >
@@ -91,7 +92,7 @@ const whatsappMsg = encodeURIComponent(`Hola, me interesa cotizar: ${producto.da
             Cotizar por WhatsApp
           </a>
           <a
-            href="/contacto"
+            href={`${base}contacto`}
             class="flex items-center justify-center border-2 border-base-text text-base-text px-6 py-3 rounded-lg font-semibold hover:bg-base-text hover:text-white transition w-full"
           >
             Solicitar cotización
