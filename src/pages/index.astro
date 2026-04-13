@@ -9,22 +9,22 @@ const marcas = (await getCollection('marcas'))
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Mantilhue Alimentos — Producción y Distribución de Alimentos en Chile">
+<BaseLayout title="Mantilhue Alimentos — La estructura que tu negocio de alimentos necesita">
   <!-- Hero -->
   <section class="bg-base-surface">
     <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 text-center">
       <h1 class="font-heading font-extrabold text-3xl md:text-5xl text-base-text leading-tight mb-4">
-        Soluciones en alimentos para negocios que necesitan calidad, continuidad y buen precio
+        Somos la empresa de alimentos que tu negocio necesita para que el stock nunca falle
       </h1>
       <p class="text-base-muted text-lg md:text-xl max-w-3xl mx-auto mb-8">
-        Producimos y distribuimos productos alimenticios a través de nuestras marcas para cada tipo de cliente
+        Producimos, envasamos y distribuimos con infraestructura propia para soportar tu cadena de distribución. Con una marca para cada tipo de negocio que atiendes.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href={`${base}catalogo`} class="inline-flex items-center justify-center gap-2 bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
-          Ver catálogo
+          Conoce nuestros productos
         </a>
         <a href="https://wa.me/56988074192?text=Hola%2C%20me%20interesa%20cotizar%20productos%20de%20Mantilhue%20Alimentos" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-whatsapp text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
-          Hablar por WhatsApp
+          Conversemos por WhatsApp
         </a>
       </div>
     </div>
@@ -32,16 +32,22 @@ const base = import.meta.env.BASE_URL;
 
   <!-- Qué hacemos -->
   <section class="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
-    <h2 class="font-heading font-bold text-2xl md:text-3xl mb-4">¿Qué hacemos?</h2>
+    <h2 class="font-heading font-bold text-2xl md:text-3xl mb-4">Más de una década respaldando negocios de alimentos en Chile</h2>
+    <p class="text-base-muted text-lg max-w-3xl mx-auto mb-2">
+      Cuando tu cliente te pide y tú no tienes, el negocio lo pierde otro. Nosotros existimos para que eso no pase.
+    </p>
     <p class="text-base-muted text-lg max-w-3xl mx-auto">
-      Somos una empresa dedicada a la producción y distribución de alimentos, enfocada en entregar soluciones confiables para negocios, distribuidores y comercios.
+      Operamos con 3.000 m² de bodega propia, líneas de envasado certificadas HACCP, flota de camiones propia y cobertura de Arica a Chiloé. No dependemos de terceros para cumplirte, y tú no dependes de terceros para cumplirle a tu cliente.
     </p>
   </section>
 
   <!-- Nuestras marcas -->
   <section class="bg-base-surface py-12 md:py-16">
     <div class="max-w-7xl mx-auto px-4">
-      <h2 class="font-heading font-bold text-2xl md:text-3xl text-center mb-8">Nuestras Marcas</h2>
+      <h2 class="font-heading font-bold text-2xl md:text-3xl text-center mb-3">Una marca para cada tipo de negocio que atiendes</h2>
+      <p class="text-base-muted text-center mb-8 max-w-2xl mx-auto">
+        No todos tus clientes buscan lo mismo. Por eso tenemos marcas que te permiten competir en distintos segmentos sin perder margen.
+      </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {marcas.map((marca) => (
           <BrandCard
@@ -55,24 +61,28 @@ const base = import.meta.env.BASE_URL;
         ))}
       </div>
       <div class="text-center mt-8">
-        <a href={`${base}marcas`} class="text-marques font-semibold hover:underline">Ver todas las marcas →</a>
+        <a href={`${base}marcas`} class="text-marques font-semibold hover:underline">Conoce cada marca en detalle →</a>
       </div>
     </div>
   </section>
 
   <!-- Para quién trabajamos -->
   <section class="max-w-7xl mx-auto px-4 py-12 md:py-16">
-    <h2 class="font-heading font-bold text-2xl md:text-3xl text-center mb-8">¿Para quién trabajamos?</h2>
+    <h2 class="font-heading font-bold text-2xl md:text-3xl text-center mb-3">Trabajamos con negocios que no pueden fallarle a sus clientes</h2>
+    <p class="text-base-muted text-center mb-8 max-w-2xl mx-auto">
+      Si tu negocio depende de tener productos en la estantería, nosotros somos tu respaldo.
+    </p>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
       {[
-        { icon: '🏪', label: 'Distribuidores' },
-        { icon: '🏬', label: 'Minimarkets' },
-        { icon: '🍽️', label: 'Restaurantes' },
-        { icon: '🛒', label: 'Comercios' },
+        { icon: '🏪', label: 'Distribuidores', desc: 'Volumen, continuidad y marcas que rotan.' },
+        { icon: '🏬', label: 'Minimarkets', desc: 'Productos básicos que tus clientes buscan todos los días.' },
+        { icon: '🍽️', label: 'Restaurantes', desc: 'Insumos de calidad constante para tu cocina.' },
+        { icon: '🛒', label: 'Comercios', desc: 'Variedad de marcas para cada tipo de público.' },
       ].map((item) => (
         <div class="bg-base-surface rounded-xl p-6">
           <div class="text-4xl mb-3">{item.icon}</div>
-          <p class="font-heading font-semibold text-sm">{item.label}</p>
+          <p class="font-heading font-semibold text-sm mb-1">{item.label}</p>
+          <p class="text-xs text-base-muted">{item.desc}</p>
         </div>
       ))}
     </div>
@@ -81,13 +91,16 @@ const base = import.meta.env.BASE_URL;
   <!-- Diferenciadores -->
   <section class="bg-base-surface py-12 md:py-16">
     <div class="max-w-7xl mx-auto px-4">
-      <h2 class="font-heading font-bold text-2xl md:text-3xl text-center mb-8">¿Por qué Mantilhue?</h2>
+      <h2 class="font-heading font-bold text-2xl md:text-3xl text-center mb-3">La infraestructura para que cumplas con tus clientes</h2>
+      <p class="text-base-muted text-center mb-8 max-w-2xl mx-auto">
+        No prometemos. Tenemos la operación montada para respaldarlo.
+      </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { title: 'Abastecimiento constante', desc: 'Stock permanente con despacho desde nuestra bodega de 3.000 m².' },
-          { title: 'Variedad de productos', desc: 'Arroz, azúcar, aceites, legumbres, pastas y más en múltiples marcas.' },
-          { title: 'Precios competitivos', desc: 'Marcas para cada segmento: volumen, calidad/precio y premium.' },
-          { title: 'Relación directa', desc: 'Atención comercial personalizada. Sin intermediarios.' },
+          { title: 'Stock que no falla', desc: '3.000 m² de bodega propia en expansión. Materias primas desde 11 países. Cuando tú pides, nosotros tenemos.' },
+          { title: 'Marcas que diversifican', desc: 'El Marqués, El Monarca, Maitén y Carbón El Valle. Cada una pensada para un segmento distinto de tu mercado.' },
+          { title: 'Despacho con flota propia', desc: 'De Arica a Chiloé con camiones nuestros. No dependemos de terceros para llegar a tu negocio.' },
+          { title: 'Relación directa', desc: 'Hablas con nosotros, no con un call center. Equipo comercial que conoce tu negocio y responde rápido.' },
         ].map((item) => (
           <div class="bg-white rounded-xl p-6 border border-base-border">
             <h3 class="font-heading font-semibold text-base mb-2">{item.title}</h3>
@@ -100,14 +113,14 @@ const base = import.meta.env.BASE_URL;
 
   <!-- CTA final -->
   <section class="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
-    <h2 class="font-heading font-bold text-2xl md:text-3xl mb-4">¿Listo para cotizar?</h2>
-    <p class="text-base-muted text-lg mb-6">Revisa nuestro catálogo y contáctanos para recibir precios y disponibilidad.</p>
+    <h2 class="font-heading font-bold text-2xl md:text-3xl mb-4">Hablemos de cómo respaldar tu negocio</h2>
+    <p class="text-base-muted text-lg mb-6">Revisa nuestro catálogo, elige lo que necesitas y conversemos. Sin compromiso, sin letra chica.</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a href={`${base}catalogo`} class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
         Ver catálogo completo
       </a>
       <a href={`${base}contacto`} class="inline-flex items-center justify-center border-2 border-base-text text-base-text px-6 py-3 rounded-lg font-semibold hover:bg-base-text hover:text-white transition">
-        Contactar
+        Contactar al equipo comercial
       </a>
     </div>
   </section>

@@ -17,14 +17,14 @@ const base = import.meta.env.BASE_URL;
   class="group block rounded-xl overflow-hidden hover:shadow-xl transition-shadow"
   style={`background-color: ${colorPrimario}`}
 >
-  <div class="p-6 md:p-8 flex flex-col items-center text-center min-h-[220px] justify-center" style={`color: ${colorTexto}`}>
+  <div class="p-6 md:p-8 flex flex-col items-center text-center min-h-[280px] justify-center" style={`color: ${colorTexto}`}>
     <img
       src={`${base}${logo.startsWith('/') ? logo.slice(1) : logo}`}
       alt={nombre}
-      class="h-16 w-auto mb-4 object-contain"
+      class="h-28 md:h-32 w-auto mb-5 object-contain drop-shadow-lg"
       loading="lazy"
     />
-    <h3 class="font-heading font-bold text-lg mb-2">{nombre}</h3>
+    <h3 class="font-heading font-bold text-xl mb-2">{nombre}</h3>
     <p class="text-sm opacity-90 mb-4">{descripcionCorta}</p>
     <span class="inline-flex items-center gap-1 text-sm font-semibold opacity-80 group-hover:opacity-100 transition">
       Ver productos
