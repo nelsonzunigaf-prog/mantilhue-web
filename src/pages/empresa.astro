@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Empresa — Mantilhue Alimentos"
+  description="Mantilhue Alimentos: producción y distribución de alimentos en Chile. 3.000 m² de bodega, HACCP, flota propia. De Arica a Chiloé."
+>
+  <!-- Hero -->
+  <section class="bg-base-surface py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl mb-4">Un partner confiable en alimentos</h1>
+      <p class="text-base-muted text-lg max-w-3xl mx-auto">
+        Producimos y distribuimos alimentos de calidad a lo largo de Chile, con infraestructura propia y estándares certificados.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12 md:py-16 space-y-12">
+    <!-- Misión y Visión -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-base-surface rounded-xl p-6 md:p-8">
+        <h2 class="font-heading font-bold text-xl mb-3">Misión</h2>
+        <p class="text-base-muted">
+          Llegar a cada uno de los hogares chilenos con productos básicos de primera necesidad, con oferta de artículos de alta calidad a precios asequibles.
+        </p>
+      </div>
+      <div class="bg-base-surface rounded-xl p-6 md:p-8">
+        <h2 class="font-heading font-bold text-xl mb-3">Visión</h2>
+        <p class="text-base-muted">
+          Ser una empresa líder en la importación, envasado y comercialización de materias primas de primera calidad certificadas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Capacidad -->
+    <section>
+      <h2 class="font-heading font-bold text-2xl mb-6">Nuestra Capacidad</h2>
+      <p class="text-base-muted mb-6">
+        Contamos con bodegas de almacenamiento, producción y despacho de 3.000 m², en proceso de ampliación, desde donde distribuimos de Arica a la Isla Grande de Chiloé, en su mayoría con transporte propio. Además, contamos con líneas de envasado de arroz, azúcar y legumbres, con capacidad para diferentes tamaños y formatos. Contamos con certificación HACCP vigente.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          '3.000 m² de bodega',
+          'Certificación HACCP vigente',
+          'Flota de camiones propia',
+          'Patio techado para carga segura',
+          'Líneas de envasado múltiples',
+          'Montacarga',
+          'Personal especializado',
+          'Asesoría técnica constante',
+        ].map((item) => (
+          <div class="flex items-start gap-2 p-3 bg-base-surface rounded-lg">
+            <svg class="w-5 h-5 text-monarca mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm">{item}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Cobertura y origen -->
+    <section>
+      <h2 class="font-heading font-bold text-2xl mb-6">Cobertura y Origen</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-heading font-semibold text-lg mb-2">Distribución</h3>
+          <p class="text-base-muted">
+            De Arica a la Isla Grande de Chiloé. Despacho con transporte propio desde nuestra planta en Melipilla, Región Metropolitana, con acceso directo por Autopista del Sol.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-heading font-semibold text-lg mb-2">Materias Primas</h3>
+          <p class="text-base-muted">
+            Trabajamos con productos importados desde Argentina, Bolivia, Canadá, Colombia, Estados Unidos, India, Pakistán, Paraguay, Perú, Tailandia y Uruguay.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Valores -->
+    <section>
+      <h2 class="font-heading font-bold text-2xl mb-6">Nuestros Valores</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {['Confianza', 'Calidad', 'Innovación', 'Desarrollo Personal', 'Control de Calidad', 'Compromiso'].map((valor) => (
+          <div class="text-center p-4 bg-base-surface rounded-lg">
+            <p class="font-heading font-semibold text-sm">{valor}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

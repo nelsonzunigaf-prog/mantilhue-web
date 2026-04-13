@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada — Mantilhue Alimentos">
+  <section class="max-w-7xl mx-auto px-4 py-24 text-center">
+    <h1 class="font-heading font-bold text-6xl text-base-muted mb-4">404</h1>
+    <p class="text-xl text-base-muted mb-8">La página que buscas no existe.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/" class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+        Ir al inicio
+      </a>
+      <a href="/catalogo" class="inline-flex items-center justify-center border-2 border-base-text text-base-text px-6 py-3 rounded-lg font-semibold hover:bg-base-text hover:text-white transition">
+        Ver catálogo
+      </a>
+    </div>
+  </section>
+</BaseLayout>

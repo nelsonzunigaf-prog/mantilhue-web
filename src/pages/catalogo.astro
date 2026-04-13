@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+
+const productos = (await getCollection('productos'))
+  .filter(p => p.data.activo)
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const marcas = (await getCollection('marcas'))
+  .filter(m => m.data.activa)
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const categorias = [...new Set(productos.map(p => p.data.categoria))].sort();
+
+const categoriasLabels: Record<string, string> = {
+  aceites: 'Aceites',
+  arroz: 'Arroz',
+  azucar: 'Azúcar',
+  legumbres: 'Legumbres',
+  pastas: 'Pastas',
+  enlatados: 'Enlatados',
+  carbon: 'Carbón',
+};
+---
+
+<BaseLayout
+  title="Catálogo de Productos — Mantilhue Alimentos"
+  description="Catálogo completo de productos Mantilhue Alimentos. Arroz, azúcar, aceites, legumbres, pastas. Marcas El Marqués, El Monarca y Maitén."
+>
+  <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <h1 class="font-heading font-bold text-3xl md:text-4xl mb-2">Catálogo de Productos</h1>
+    <p class="text-base-muted mb-8">Explora nuestros productos por marca o categoría.</p>
+
+    <!-- Filtros -->
+    <div class="mb-8 space-y-4" id="filters">
+      <!-- Filtro marcas -->
+      <div class="flex flex-wrap gap-2">
+        <button data-filter="marca" data-value="" class="filter-btn filter-active px-4 py-2 rounded-full text-sm font-medium border border-base-border bg-base-text text-white">
+          Todas
+        </button>
+        {marcas.map((m) => (
+          <button
+            data-filter="marca"
+            data-value={m.data.slug}
+            class="filter-btn px-4 py-2 rounded-full text-sm font-medium border border-base-border text-base-text hover:bg-base-surface transition"
+          >
+            {m.data.nombre}
+          </button>
+        ))}
+      </div>
+
+      <!-- Filtro categorias -->
+      <div class="flex flex-wrap gap-2">
+        <button data-filter="categoria" data-value="" class="filter-btn filter-active px-3 py-1.5 rounded-full text-xs font-medium border border-base-border bg-base-text text-white">
+          Todas
+        </button>
+        {categorias.map((cat) => (
+          <button
+            data-filter="categoria"
+            data-value={cat}
+            class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-base-border text-base-text hover:bg-base-surface transition"
+          >
+            {categoriasLabels[cat] || cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Búsqueda -->
+      <div>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Buscar producto..."
+          class="w-full md:w-80 px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques"
+        />
+      </div>
+    </div>
+
+    <!-- Contador -->
+    <p id="results-count" class="text-sm text-base-muted mb-4"></p>
+
+    <!-- Grid productos -->
+    <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {productos.map((p) => (
+        <div class="product-item" data-marca={p.data.marca} data-categoria={p.data.categoria} data-nombre={p.data.nombre.toLowerCase()}>
+          <ProductCard
+            nombre={p.data.nombre}
+            slug={p.data.slug}
+            marca={p.data.marca}
+            formato={p.data.formato}
+            imagen={p.data.imagen}
+            categoria={p.data.categoria}
+          />
+        </div>
+      ))}
+    </div>
+
+    <!-- Estado vacío -->
+    <div id="empty-state" class="hidden text-center py-12">
+      <p class="text-base-muted text-lg mb-2">No se encontraron productos</p>
+      <button id="clear-filters" class="text-marques font-semibold hover:underline">Limpiar filtros</button>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const grid = document.getElementById('products-grid')!;
+  const items = grid.querySelectorAll('.product-item') as NodeListOf<HTMLElement>;
+  const filterBtns = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>;
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const countEl = document.getElementById('results-count')!;
+  const emptyState = document.getElementById('empty-state')!;
+  const clearBtn = document.getElementById('clear-filters')!;
+
+  let activeMarca = '';
+  let activeCategoria = '';
+  let searchTerm = '';
+
+  function applyFilters() {
+    let visible = 0;
+    items.forEach(item => {
+      const marca = item.dataset.marca || '';
+      const categoria = item.dataset.categoria || '';
+      const nombre = item.dataset.nombre || '';
+
+      const matchMarca = !activeMarca || marca === activeMarca;
+      const matchCat = !activeCategoria || categoria === activeCategoria;
+      const matchSearch = !searchTerm || nombre.includes(searchTerm);
+
+      if (matchMarca && matchCat && matchSearch) {
+        item.classList.remove('hidden');
+        visible++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    countEl.textContent = `${visible} producto${visible !== 1 ? 's' : ''}`;
+    emptyState.classList.toggle('hidden', visible > 0);
+    grid.classList.toggle('hidden', visible === 0);
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filterType = btn.dataset.filter!;
+      const value = btn.dataset.value || '';
+
+      // Update active state within same filter group
+      filterBtns.forEach(b => {
+        if (b.dataset.filter === filterType) {
+          b.classList.remove('filter-active', 'bg-base-text', 'text-white');
+          b.classList.add('text-base-text');
+        }
+      });
+      btn.classList.add('filter-active', 'bg-base-text', 'text-white');
+      btn.classList.remove('text-base-text');
+
+      if (filterType === 'marca') activeMarca = value;
+      if (filterType === 'categoria') activeCategoria = value;
+
+      applyFilters();
+    });
+  });
+
+  searchInput.addEventListener('input', () => {
+    searchTerm = searchInput.value.toLowerCase().trim();
+    applyFilters();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    activeMarca = '';
+    activeCategoria = '';
+    searchTerm = '';
+    searchInput.value = '';
+    filterBtns.forEach(b => {
+      b.classList.remove('filter-active', 'bg-base-text', 'text-white');
+      b.classList.add('text-base-text');
+      if (b.dataset.value === '') {
+        b.classList.add('filter-active', 'bg-base-text', 'text-white');
+        b.classList.remove('text-base-text');
+      }
+    });
+    applyFilters();
+  });
+
+  // Init
+  applyFilters();
+</script>

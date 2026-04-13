@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandCard from '../../components/BrandCard.astro';
+import { getCollection } from 'astro:content';
+
+const marcas = (await getCollection('marcas'))
+  .filter(m => m.data.activa)
+  .sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<BaseLayout
+  title="Nuestras Marcas — Mantilhue Alimentos"
+  description="Conoce las marcas de Mantilhue Alimentos: El Marqués, El Monarca, Maitén y Carbón El Valle."
+>
+  <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <h1 class="font-heading font-bold text-3xl md:text-4xl mb-2">Nuestras Marcas</h1>
+    <p class="text-base-muted mb-8">
+      Cada marca está diseñada para un tipo de cliente. Encuentra la que mejor se adapta a tu negocio.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {marcas.map((marca) => (
+        <BrandCard
+          nombre={marca.data.nombre}
+          slug={marca.data.slug}
+          descripcionCorta={marca.data.descripcionCorta}
+          logo={marca.data.logo}
+          colorPrimario={marca.data.colorPrimario}
+          colorTexto={marca.data.colorTexto}
+        />
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="/catalogo" class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+        Ver catálogo general
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Clientes B2B — Mantilhue Alimentos"
+  description="Trabajamos con distribuidores, minimarkets, restaurantes y comercios. Continuidad, buen precio y un proveedor confiable."
+>
+  <section class="bg-base-surface py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl mb-4">Clientes B2B</h1>
+      <p class="text-base-muted text-lg max-w-3xl mx-auto">
+        Trabajamos con negocios que requieren continuidad, buen precio y un proveedor confiable.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12 md:py-16 space-y-12">
+    <!-- Tipos de clientes -->
+    <section>
+      <h2 class="font-heading font-bold text-2xl mb-6 text-center">¿Con quién trabajamos?</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {[
+          { icon: '🏪', label: 'Distribuidores', desc: 'Cobertura regional y local con volumen competitivo.' },
+          { icon: '🏬', label: 'Minimarkets', desc: 'Productos de alta rotación en formatos accesibles.' },
+          { icon: '🍽️', label: 'Restaurantes', desc: 'Insumos básicos con calidad constante.' },
+          { icon: '🛒', label: 'Comercios', desc: 'Variedad de marcas para cada tipo de público.' },
+        ].map((item) => (
+          <div class="bg-base-surface rounded-xl p-6 text-center">
+            <div class="text-3xl mb-3">{item.icon}</div>
+            <h3 class="font-heading font-semibold text-sm mb-1">{item.label}</h3>
+            <p class="text-xs text-base-muted">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Beneficios -->
+    <section>
+      <h2 class="font-heading font-bold text-2xl mb-6 text-center">Beneficios de trabajar con nosotros</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+        {[
+          'Abastecimiento constante desde nuestra bodega de 3.000 m²',
+          'Marcas para cada segmento de precio: volumen, calidad/precio y accesible',
+          'Despacho con flota propia de Arica a Chiloé',
+          'Atención comercial personalizada y directa',
+          'Certificación HACCP vigente en todos nuestros procesos',
+          'Precios competitivos sin intermediarios',
+        ].map((item) => (
+          <div class="flex items-start gap-3 p-3 bg-base-surface rounded-lg">
+            <svg class="w-5 h-5 text-monarca mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm">{item}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Proceso -->
+    <section>
+      <h2 class="font-heading font-bold text-2xl mb-6 text-center">¿Cómo comprar?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        {[
+          { step: '1', title: 'Explora el catálogo', desc: 'Revisa nuestros productos por marca o categoría.' },
+          { step: '2', title: 'Solicita cotización', desc: 'Contáctanos por WhatsApp, formulario o teléfono.' },
+          { step: '3', title: 'Recibe tu pedido', desc: 'Coordinamos despacho con nuestra flota propia.' },
+        ].map((item) => (
+          <div class="text-center">
+            <div class="w-10 h-10 bg-marques text-white rounded-full flex items-center justify-center font-bold mx-auto mb-3">
+              {item.step}
+            </div>
+            <h3 class="font-heading font-semibold text-sm mb-1">{item.title}</h3>
+            <p class="text-xs text-base-muted">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/catalogo" class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+          Ver catálogo
+        </a>
+        <a href="https://wa.me/56988074192?text=Hola%2C%20me%20interesa%20cotizar%20productos%20de%20Mantilhue%20Alimentos" target="_blank" rel="noopener" class="inline-flex items-center justify-center bg-whatsapp text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

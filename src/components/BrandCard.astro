@@ -1,0 +1,35 @@
+---
+interface Props {
+  nombre: string;
+  slug: string;
+  descripcionCorta: string;
+  logo: string;
+  colorPrimario: string;
+  colorTexto?: string;
+}
+
+const { nombre, slug, descripcionCorta, logo, colorPrimario, colorTexto = '#FFFFFF' } = Astro.props;
+---
+
+<a
+  href={`/marcas/${slug}`}
+  class="group block rounded-xl overflow-hidden hover:shadow-xl transition-shadow"
+  style={`background-color: ${colorPrimario}`}
+>
+  <div class="p-6 md:p-8 flex flex-col items-center text-center min-h-[220px] justify-center" style={`color: ${colorTexto}`}>
+    <img
+      src={logo}
+      alt={nombre}
+      class="h-16 w-auto mb-4 object-contain"
+      loading="lazy"
+    />
+    <h3 class="font-heading font-bold text-lg mb-2">{nombre}</h3>
+    <p class="text-sm opacity-90 mb-4">{descripcionCorta}</p>
+    <span class="inline-flex items-center gap-1 text-sm font-semibold opacity-80 group-hover:opacity-100 transition">
+      Ver productos
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </span>
+  </div>
+</a>

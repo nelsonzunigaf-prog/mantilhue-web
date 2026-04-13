@@ -1,0 +1,48 @@
+---
+interface Props {
+  nombre: string;
+  slug: string;
+  marca: string;
+  formato: string;
+  imagen: string;
+  categoria: string;
+}
+
+const { nombre, slug, marca, formato, imagen, categoria } = Astro.props;
+
+const brandColors: Record<string, { bg: string; text: string }> = {
+  'el-marques': { bg: 'bg-marques', text: 'text-white' },
+  'el-monarca': { bg: 'bg-monarca', text: 'text-white' },
+  'maiten': { bg: 'bg-maiten', text: 'text-white' },
+  'carbon-el-valle': { bg: 'bg-valle', text: 'text-white' },
+};
+
+const brandLabels: Record<string, string> = {
+  'el-marques': 'El Marqués',
+  'el-monarca': 'El Monarca',
+  'maiten': 'Maitén',
+  'carbon-el-valle': 'Carbón El Valle',
+};
+
+const colors = brandColors[marca] || { bg: 'bg-gray-500', text: 'text-white' };
+---
+
+<a href={`/productos/${slug}`} class="group block bg-white rounded-xl border border-base-border overflow-hidden hover:shadow-lg transition-shadow">
+  <div class="aspect-square bg-base-surface p-4 flex items-center justify-center overflow-hidden">
+    <img
+      src={imagen}
+      alt={nombre}
+      class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform"
+      loading="lazy"
+    />
+  </div>
+  <div class="p-4">
+    <span class:list={['inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-2', colors.bg, colors.text]}>
+      {brandLabels[marca] || marca}
+    </span>
+    <h3 class="font-heading font-semibold text-base-text text-sm leading-tight mb-1">
+      {nombre}
+    </h3>
+    <p class="text-xs text-base-muted">{formato}</p>
+  </div>
+</a>

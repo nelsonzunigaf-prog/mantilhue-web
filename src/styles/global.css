@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  /* Base */
+  --color-base-bg: #FFFFFF;
+  --color-base-surface: #F5F5F5;
+  --color-base-text: #333333;
+  --color-base-muted: #6B7280;
+  --color-base-border: #E5E7EB;
+
+  /* Marcas */
+  --color-marques: #C62828;
+  --color-marques-light: #E53935;
+  --color-monarca: #1B5E20;
+  --color-monarca-light: #2E7D32;
+  --color-maiten: #F57F17;
+  --color-maiten-light: #F9A825;
+  --color-valle: #4E342E;
+  --color-valle-light: #6D4C41;
+
+  /* Funcionales */
+  --color-whatsapp: #25D366;
+  --color-error: #DC2626;
+  --color-success: #16A34A;
+  --color-info: #2563EB;
+
+  /* Tipografia */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: var(--color-base-text);
+    background-color: var(--color-base-bg);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}

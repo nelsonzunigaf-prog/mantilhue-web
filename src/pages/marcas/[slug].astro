@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const marcas = await getCollection('marcas');
+  return marcas
+    .filter(m => m.data.activa)
+    .map(marca => ({
+      params: { slug: marca.data.slug },
+      props: { marca },
+    }));
+}
+
+const { marca } = Astro.props;
+const productos = (await getCollection('productos'))
+  .filter(p => p.data.activo && p.data.marca === marca.data.slug)
+  .sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<BaseLayout
+  title={`${marca.data.nombre} — Mantilhue Alimentos`}
+  description={marca.data.descripcion}
+>
+  <!-- Hero marca -->
+  <section style={`background-color: ${marca.data.colorPrimario}; color: ${marca.data.colorTexto}`}>
+    <div class="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
+      <img
+        src={marca.data.logo}
+        alt={marca.data.nombre}
+        class="h-20 w-auto mx-auto mb-4"
+      />
+      <h1 class="font-heading font-bold text-3xl md:text-4xl mb-3">{marca.data.nombre}</h1>
+      <p class="text-lg max-w-2xl mx-auto opacity-90">{marca.data.descripcion}</p>
+    </div>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {marca.data.beneficios.map((beneficio: string) => (
+        <div class="flex items-start gap-3 p-4 bg-base-surface rounded-lg">
+          <svg class="w-5 h-5 mt-0.5 flex-shrink-0" style={`color: ${marca.data.colorPrimario}`} fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm">{beneficio}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Productos -->
+  <section class="max-w-7xl mx-auto px-4 pb-12 md:pb-16">
+    <h2 class="font-heading font-bold text-2xl mb-6">
+      Productos {marca.data.nombre}
+      <span class="text-base-muted font-normal text-lg">({productos.length})</span>
+    </h2>
+
+    {productos.length > 0 ? (
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {productos.map((p) => (
+          <ProductCard
+            nombre={p.data.nombre}
+            slug={p.data.slug}
+            marca={p.data.marca}
+            formato={p.data.formato}
+            imagen={p.data.imagen}
+            categoria={p.data.categoria}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-base-muted text-center py-8">Productos disponibles próximamente.</p>
+    )}
+
+    <div class="text-center mt-8">
+      <a href="/catalogo" class="text-marques font-semibold hover:underline">← Ver catálogo completo</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Distribuidores — Mantilhue Alimentos"
+  description="Únete a la red de distribuidores de Mantilhue Alimentos. Calidad garantizada, apoyo continuo y diversificación de oferta."
+>
+  <section class="bg-base-surface py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl mb-4">¿Deseas ser Distribuidor?</h1>
+      <p class="text-base-muted text-lg max-w-3xl mx-auto">
+        En Mantilhue reconocemos la importancia de los negocios locales y la cercanía que tienen con la comunidad. Únete a nuestra red y crezcamos juntos.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12 md:py-16">
+    <!-- Beneficios -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      {[
+        { title: 'Calidad Garantizada', desc: 'Productos elaborados con altos estándares, asegurando satisfacción en cada compra. Certificación HACCP vigente.' },
+        { title: 'Apoyo Continuo', desc: 'Capacitaciones, materiales de marketing y asesoramiento en ventas para asegurar tu éxito como distribuidor.' },
+        { title: 'Diversificación de Oferta', desc: 'Múltiples marcas y categorías para atraer un público más amplio e incrementar la fidelidad de tus clientes.' },
+      ].map((item) => (
+        <div class="bg-base-surface rounded-xl p-6">
+          <h3 class="font-heading font-bold text-lg mb-2">{item.title}</h3>
+          <p class="text-sm text-base-muted">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Formulario -->
+    <div class="max-w-xl mx-auto">
+      <h2 class="font-heading font-bold text-2xl mb-6 text-center">Completa tus datos</h2>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
+        <div>
+          <label for="nombre" class="block text-sm font-medium mb-1">Nombre y Apellido *</label>
+          <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques" />
+        </div>
+        <div>
+          <label for="empresa" class="block text-sm font-medium mb-1">Negocio o Empresa *</label>
+          <input type="text" id="empresa" name="empresa" required class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques" />
+        </div>
+        <div>
+          <label for="ciudad" class="block text-sm font-medium mb-1">Ciudad *</label>
+          <input type="text" id="ciudad" name="ciudad" required class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques" />
+        </div>
+        <div>
+          <label for="telefono" class="block text-sm font-medium mb-1">Teléfono *</label>
+          <input type="tel" id="telefono" name="telefono" required class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1">Correo Electrónico *</label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques" />
+        </div>
+        <div>
+          <label for="consulta" class="block text-sm font-medium mb-1">Consulta</label>
+          <textarea id="consulta" name="consulta" rows="3" class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques resize-y"></textarea>
+        </div>
+        <input type="text" name="_gotcha" class="hidden" />
+        <button type="submit" class="bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition w-full">
+          Enviar solicitud
+        </button>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
