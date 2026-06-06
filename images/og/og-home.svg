@@ -38,7 +38,7 @@
   <text x="80" y="430" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">a los negocios que alimentan a Chile.</text>
 
   <!-- Marcas -->
-  <text x="80" y="500" font-family="Arial,sans-serif" font-size="20" fill="#aaaaaa">El Marqués · El Monarca · Maitén · Carbón El Valle</text>
+  <text x="80" y="500" font-family="Arial,sans-serif" font-size="20" fill="#aaaaaa">El Marqués · El Monarca · Carbón El Valle</text>
 
   <!-- URL -->
   <text x="80" y="570" font-family="Arial,sans-serif" font-size="18" fill="#666666">mantilhuealimentos.cl</text>
