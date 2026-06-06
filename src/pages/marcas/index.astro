@@ -11,13 +11,25 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Nuestras Marcas — Mantilhue Alimentos"
-  description="Conoce las marcas de Mantilhue Alimentos: El Marqués, El Monarca, Maitén y Carbón El Valle."
+  description="Conoce las marcas de Mantilhue Alimentos: El Marqués, El Monarca y Carbón El Valle."
 >
+  <section class="relative overflow-hidden">
+    <img
+      src={`${base}images/gallery/materia-prima.webp`}
+      alt="Materias primas Mantilhue"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 py-14 md:py-16">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl text-white mb-3 drop-shadow-lg">Tres marcas con historia propia en el mercado chileno</h1>
+      <p class="text-gray-100 max-w-3xl drop-shadow">
+        El Marqués, El Monarca y Carbón El Valle forman un portafolio construido a lo largo de los años para atender distintos tipos de clientes. Cada una con su identidad, todas respaldadas por la misma trayectoria de cumplimiento Mantilhue.
+      </p>
+    </div>
+  </section>
+
   <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
-    <h1 class="font-heading font-bold text-3xl md:text-4xl mb-2">Cuatro marcas, una estrategia para cada estante</h1>
-    <p class="text-base-muted mb-8 max-w-3xl">
-      No todos tus clientes buscan lo mismo. Tenemos marcas que te permiten competir en volumen, en calidad/precio y en precio accesible — sin perder margen en ningún segmento.
-    </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {marcas.map((marca) => (

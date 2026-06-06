@@ -4,14 +4,14 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 import preact from '@astrojs/preact';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nelsonzunigaf-prog.github.io',
-  base: '/mantilhue-web/',
+  site: 'https://alimentosmantilhue.cl',
   vite: {
     plugins: [tailwindcss()]
   },
 
-  integrations: [preact()]
+  integrations: [preact(), sitemap()]
 });

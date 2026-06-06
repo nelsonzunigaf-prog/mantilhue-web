@@ -27,11 +27,23 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Catálogo de Productos — Mantilhue Alimentos"
-  description="Catálogo completo de productos Mantilhue Alimentos. Arroz, azúcar, aceites, legumbres, pastas. Marcas El Marqués, El Monarca y Maitén."
+  description="Catálogo completo de productos Mantilhue Alimentos. Arroz, azúcar, aceites, legumbres, pastas. Marcas El Marqués, El Monarca y Carbón El Valle."
 >
   <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
-    <h1 class="font-heading font-bold text-3xl md:text-4xl mb-2">Catálogo de Productos</h1>
-    <p class="text-base-muted mb-8">Explora nuestros productos por marca o categoría.</p>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl">Catálogo de productos</h1>
+      <a
+        href={`${base}catalogo-mantilhue.pdf`}
+        download
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-monarca text-white font-semibold rounded-lg text-sm hover:opacity-90 transition shrink-0"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        Descargar catálogo PDF
+      </a>
+    </div>
+    <p class="text-base-muted mb-8">Un portafolio construido a lo largo de los años para cubrir cada necesidad de tu negocio. Filtra por marca o categoría y encuentra lo que buscas.</p>
 
     <!-- Filtros -->
     <div class="mb-8 space-y-4" id="filters">

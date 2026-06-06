@@ -1,0 +1,282 @@
+---
+import { getCollection } from 'astro:content';
+
+const productos = (await getCollection('productos'))
+  .filter(p => p.data.activo)
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const marcas = (await getCollection('marcas'))
+  .filter(m => m.data.activa)
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const marcaMap = Object.fromEntries(marcas.map(m => [m.data.slug, m.data]));
+
+const categoriasLabels: Record<string, string> = {
+  aceites: 'Aceites',
+  arroz: 'Arroz',
+  azucar: 'Azúcar',
+  legumbres: 'Legumbres',
+  pastas: 'Pastas',
+  enlatados: 'Enlatados',
+  carbon: 'Carbón',
+};
+
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo Mantilhue Alimentos</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #1a1a1a;
+        background: white;
+      }
+
+      /* ── PORTADA ── */
+      .cover {
+        width: 210mm;
+        height: 297mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40mm 20mm;
+        background: #1a1a1a;
+        color: white;
+        page-break-after: always;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cover-stripe {
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 6px;
+        background: #8BA83E;
+      }
+
+      .cover-m {
+        width: 72px; height: 72px;
+        background: #8BA83E;
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 52px; font-weight: 900; color: white;
+        margin-bottom: 24px;
+      }
+
+      .cover h1 {
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+
+      .cover-sub {
+        font-size: 16px;
+        letter-spacing: 8px;
+        color: #8BA83E;
+        font-weight: 700;
+        margin-bottom: 32px;
+      }
+
+      .cover-line {
+        width: 200px; height: 3px;
+        background: #8BA83E;
+        border-radius: 2px;
+        margin-bottom: 32px;
+      }
+
+      .cover-tagline {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.4;
+        max-width: 400px;
+        margin-bottom: 48px;
+      }
+
+      .cover-brands {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 16px;
+      }
+
+      .cover-footer {
+        position: absolute;
+        bottom: 20mm;
+        left: 20mm;
+        font-size: 12px;
+        color: #555;
+      }
+
+      /* ── PÁGINA DE PRODUCTOS ── */
+      .products-page {
+        width: 210mm;
+        padding: 12mm 14mm;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid #8BA83E;
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+      }
+
+      .page-header-logo {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      .page-header-logo span { color: #8BA83E; }
+
+      .page-title {
+        font-size: 11px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      /* ── GRID ── */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+
+      .product-card {
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        overflow: hidden;
+        page-break-inside: avoid;
+      }
+
+      .product-img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: contain;
+        background: #f9f9f9;
+        padding: 6px;
+      }
+
+      .product-info {
+        padding: 6px 8px 8px;
+      }
+
+      .product-brand-tag {
+        display: inline-block;
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin-bottom: 4px;
+        color: white;
+      }
+
+      .product-name {
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: #1a1a1a;
+        margin-bottom: 2px;
+      }
+
+      .product-format {
+        font-size: 9px;
+        color: #666;
+      }
+
+      .product-category {
+        font-size: 8px;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 2px;
+      }
+
+      /* ── FOOTER DE PÁGINA ── */
+      .page-footer {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #e5e5e5;
+        padding-top: 6px;
+        font-size: 9px;
+        color: #999;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .cover { page-break-after: always; }
+        .products-page { page-break-after: always; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- PORTADA -->
+    <div class="cover">
+      <div class="cover-stripe"></div>
+      <div class="cover-m">M</div>
+      <h1>Mantilhue</h1>
+      <div class="cover-sub">ALIMENTOS</div>
+      <div class="cover-line"></div>
+      <p class="cover-tagline">Más de una década abasteciendo a los negocios que alimentan a Chile.</p>
+      <p class="cover-brands">El Marqués &nbsp;·&nbsp; El Monarca &nbsp;·&nbsp; Carbón El Valle</p>
+      <div class="cover-footer">mantilhuealimentos.cl &nbsp;·&nbsp; contacto@mantilhuealimentos.cl</div>
+    </div>
+
+    <!-- PÁGINA DE PRODUCTOS -->
+    <div class="products-page">
+      <div class="page-header">
+        <div class="page-header-logo">Mantilhue <span>Alimentos</span></div>
+        <div class="page-title">Catálogo de Productos</div>
+      </div>
+
+      <div class="products-grid">
+        {productos.map((p) => {
+          const marca = marcaMap[p.data.marca];
+          const color = marca?.colorPrimario ?? '#8BA83E';
+          return (
+            <div class="product-card">
+              <img
+                class="product-img"
+                src={`${base}${p.data.imagen.replace(/^\//, '')}`}
+                alt={p.data.nombre}
+              />
+              <div class="product-info">
+                <span class="product-brand-tag" style={`background:${color}`}>
+                  {marca?.nombre ?? p.data.marca}
+                </span>
+                <div class="product-name">{p.data.nombre}</div>
+                <div class="product-format">{p.data.formato}</div>
+                <div class="product-category">{categoriasLabels[p.data.categoria] ?? p.data.categoria}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div class="page-footer">
+        <span>Mantilhue Alimentos — Catálogo {new Date().getFullYear()}</span>
+        <span>Para cotizar: contacto@mantilhuealimentos.cl · +56 9 XXXX XXXX</span>
+      </div>
+    </div>
+
+  </body>
+</html>

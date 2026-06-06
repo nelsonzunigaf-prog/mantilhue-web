@@ -5,7 +5,6 @@ const BASE = 'https://mantilhuealimentos.cl/wp-content/uploads/2023/10';
 const logos = [
   { url: `${BASE}/logo-El-Marques.png`, out: 'public/images/logos/el-marques.png' },
   { url: `${BASE}/logo-El-Monarca.png`, out: 'public/images/logos/el-monarca.png' },
-  { url: `${BASE}/logo-Maiten.png`, out: 'public/images/logos/maiten.png' },
   { url: `${BASE}/logo-El-Valle.png`, out: 'public/images/logos/carbon-el-valle.png' },
 ];
 

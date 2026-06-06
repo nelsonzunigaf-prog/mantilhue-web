@@ -4,7 +4,6 @@ import { writeFile } from 'fs/promises';
 const brands = [
   { name: 'El Marqués', file: 'el-marques', bg: '#C62828', text: '#FFFFFF' },
   { name: 'El Monarca', file: 'el-monarca', bg: '#1B5E20', text: '#FFFFFF' },
-  { name: 'Maitén', file: 'maiten', bg: '#F57F17', text: '#FFFFFF' },
   { name: 'Carbón El Valle', file: 'carbon-el-valle', bg: '#4E342E', text: '#FFFFFF' },
 ];
 

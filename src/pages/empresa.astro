@@ -5,14 +5,21 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Empresa — Mantilhue Alimentos"
-  description="Más de una década produciendo y distribuyendo alimentos en Chile. 3.000 m² de operación propia, HACCP, flota propia. De Arica a Chiloé."
+  description="Más de una década produciendo y distribuyendo alimentos en Chile. 3.000 m² de operación propia, certificación HACCP y flota propia de Arica a Chiloé."
 >
   <!-- Hero -->
-  <section class="bg-base-surface py-12 md:py-16">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h1 class="font-heading font-bold text-3xl md:text-4xl mb-4">Llevamos más de una década haciendo lo mismo: cumplir</h1>
-      <p class="text-base-muted text-lg max-w-3xl mx-auto">
-        Somos una empresa chilena de producción y distribución de alimentos que trabaja para que tu negocio tenga lo que necesita, cuando lo necesita. Sin excusas, sin demoras.
+  <section class="relative overflow-hidden">
+    <img
+      src={`${base}images/bodega.jpg`}
+      alt="Bodega Mantilhue con pallets listos para despacho"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/45"></div>
+    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-20 text-center">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl text-white mb-4 drop-shadow-lg">Una empresa chilena que se construye cumpliendo, pedido tras pedido</h1>
+      <p class="text-gray-100 text-lg max-w-3xl mx-auto drop-shadow">
+        En Mantilhue producimos y distribuimos alimentos en Chile desde hace más de una década. Sabemos que la confianza no se declara: se gana con cada entrega a tiempo, cada lote consistente y cada promesa sostenida en el tiempo.
       </p>
     </div>
   </section>
@@ -21,35 +28,35 @@ const base = import.meta.env.BASE_URL;
     <!-- Misión y Visión -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="bg-base-surface rounded-xl p-6 md:p-8">
-        <h2 class="font-heading font-bold text-xl mb-3">Lo que nos mueve</h2>
+        <h2 class="font-heading font-bold text-xl mb-3">Nuestra misión</h2>
         <p class="text-base-muted">
-          Llegar a cada rincón de Chile con productos básicos de calidad a precios que permitan a los negocios ser competitivos. No vendemos solo alimentos — entregamos la tranquilidad de saber que tu proveedor no te va a fallar.
+          Llegar a cada hogar chileno con productos básicos de primera necesidad, ofreciendo calidad certificada a precios que permiten a los negocios ser competitivos. Detrás de cada pedido hay una familia esperando su mesa, y ese es el compromiso que asumimos cada día.
         </p>
       </div>
       <div class="bg-base-surface rounded-xl p-6 md:p-8">
-        <h2 class="font-heading font-bold text-xl mb-3">Hacia dónde vamos</h2>
+        <h2 class="font-heading font-bold text-xl mb-3">Nuestra visión</h2>
         <p class="text-base-muted">
-          Ser el partner de referencia en importación, envasado y distribución de alimentos certificados en Chile. Con la escala para competir y la cercanía para entenderte.
+          Ser la empresa de referencia en importación, envasado y comercialización de materias primas de primera calidad en Chile. Con la escala para competir y la trayectoria que respalda cada decisión.
         </p>
       </div>
     </div>
 
     <!-- Capacidad -->
     <section>
-      <h2 class="font-heading font-bold text-2xl mb-3">La operación que respalda cada despacho</h2>
+      <h2 class="font-heading font-bold text-2xl mb-3">La operación que sostiene cada compromiso</h2>
       <p class="text-base-muted mb-6">
-        No hablamos de planes ni de proyecciones. Esto es lo que tenemos montado hoy, funcionando, para que cuando hagas un pedido nosotros respondamos:
+        No hablamos de planes ni de proyecciones. Esta es la infraestructura que tenemos funcionando hoy, la misma que hace más de diez años respalda cada pedido que nos confías:
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { bold: '3.000 m²', desc: 'de bodega propia en expansión permanente' },
-          { bold: 'HACCP vigente', desc: 'en todos nuestros procesos de envasado' },
-          { bold: 'Flota de camiones', desc: 'propia — no dependemos de terceros' },
-          { bold: 'Patio techado', desc: 'carga segura todo el año, llueva o no' },
+          { bold: 'Certificación HACCP', desc: 'vigente en todos nuestros procesos de envasado' },
+          { bold: 'Flota propia', desc: 'camiones Mantilhue, sin intermediarios logísticos' },
+          { bold: 'Patio techado', desc: 'carga protegida todo el año, llueva o no' },
           { bold: 'Líneas de envasado', desc: 'arroz, azúcar y legumbres en múltiples formatos' },
-          { bold: 'Montacarga', desc: 'operación eficiente, tiempos de carga mínimos' },
+          { bold: 'Montacargas', desc: 'operación eficiente y tiempos de carga controlados' },
           { bold: 'Equipo especializado', desc: 'personal técnico con asesoría permanente' },
-          { bold: 'Capacidad de adaptación', desc: 'maquinaria y formatos flexibles según demanda' },
+          { bold: 'Capacidad de adaptación', desc: 'maquinaria y formatos flexibles según cada demanda' },
         ].map((item) => (
           <div class="flex items-start gap-2 p-4 bg-base-surface rounded-lg">
             <svg class="w-5 h-5 text-monarca mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -61,20 +68,43 @@ const base = import.meta.env.BASE_URL;
       </div>
     </section>
 
+    <!-- Personas detrás de la operación -->
+    <section>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center bg-base-surface rounded-xl overflow-hidden">
+        <div class="h-full">
+          <img
+            src={`${base}images/planta-envasado.jpg`}
+            alt="Línea de envasado Mantilhue"
+            class="w-full h-full object-cover aspect-[4/3]"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 md:p-8">
+          <h2 class="font-heading font-bold text-2xl mb-4">Las personas detrás de cada entrega</h2>
+          <p class="text-base-muted mb-3">
+            Nuestra operación se sostiene en un equipo que lleva años haciendo bien lo que hace. Personal técnico, operarios especializados, equipo comercial y área de calidad que trabajan bajo los mismos estándares, con el mismo compromiso.
+          </p>
+          <p class="text-base-muted">
+            Cuando nos contactas, no hablas con un call center. Hablas con personas que conocen tu negocio y responden con la seriedad que exige cada relación comercial.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Cobertura y origen -->
     <section>
-      <h2 class="font-heading font-bold text-2xl mb-6">Estamos donde tu negocio nos necesita</h2>
+      <h2 class="font-heading font-bold text-2xl mb-6">Presencia nacional, respaldo internacional</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="bg-base-surface rounded-xl p-6">
           <h3 class="font-heading font-semibold text-lg mb-2">De Arica a Chiloé</h3>
           <p class="text-base-muted">
-            Despachamos a lo largo de todo Chile desde nuestra planta en Melipilla, con acceso directo por Autopista del Sol. La mayoría de los despachos van en nuestra propia flota — eso significa control total de tiempos y condiciones.
+            Despachamos a lo largo de todo el país desde nuestra planta en Melipilla, con acceso directo por Autopista del Sol. La mayoría de los envíos viaja en nuestra propia flota, lo que nos permite un control real de tiempos, condiciones y cumplimiento.
           </p>
         </div>
         <div class="bg-base-surface rounded-xl p-6">
           <h3 class="font-heading font-semibold text-lg mb-2">Materias primas de 11 países</h3>
           <p class="text-base-muted">
-            Trabajamos con proveedores de Argentina, Bolivia, Canadá, Colombia, Estados Unidos, India, Pakistán, Paraguay, Perú, Tailandia y Uruguay. Esa diversificación nos permite mantener stock cuando otros no pueden.
+            Trabajamos con proveedores de Argentina, Bolivia, Canadá, Colombia, Estados Unidos, India, Pakistán, Paraguay, Perú, Tailandia y Uruguay. Una red de abastecimiento diversificada que nos permite mantener continuidad cuando el mercado se tensiona.
           </p>
         </div>
       </div>
@@ -82,15 +112,15 @@ const base = import.meta.env.BASE_URL;
 
     <!-- Valores -->
     <section>
-      <h2 class="font-heading font-bold text-2xl mb-3">En qué creemos</h2>
-      <p class="text-base-muted mb-6">Estos no son slogans. Son las reglas con las que operamos todos los días.</p>
+      <h2 class="font-heading font-bold text-2xl mb-3">Los valores que sostienen cada decisión</h2>
+      <p class="text-base-muted mb-6">No son declaraciones para el sitio. Son las reglas con las que operamos todos los días, en cada lote y cada despacho.</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {[
           { valor: 'Confianza', desc: 'Hacemos lo que decimos' },
-          { valor: 'Calidad', desc: 'HACCP no es opcional' },
-          { valor: 'Innovación', desc: 'Formatos y marcas que se adaptan' },
-          { valor: 'Personas', desc: 'Equipo propio, comprometido' },
-          { valor: 'Control', desc: 'Cada proceso tiene dueño' },
+          { valor: 'Calidad', desc: 'HACCP como estándar innegociable' },
+          { valor: 'Innovación', desc: 'Formatos y procesos que evolucionan' },
+          { valor: 'Personas', desc: 'Un equipo propio y comprometido' },
+          { valor: 'Control', desc: 'Cada proceso con responsable claro' },
           { valor: 'Compromiso', desc: 'Tu pedido es nuestra prioridad' },
         ].map((item) => (
           <div class="text-center p-4 bg-base-surface rounded-lg">
@@ -103,10 +133,10 @@ const base = import.meta.env.BASE_URL;
 
     <!-- CTA -->
     <div class="text-center">
-      <h2 class="font-heading font-bold text-2xl mb-4">¿Quieres saber cómo trabajamos contigo?</h2>
+      <h2 class="font-heading font-bold text-2xl mb-4">Conversemos sobre cómo acompañar a tu negocio</h2>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href={`${base}clientes-b2b`} class="inline-flex items-center justify-center bg-marques text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
-          Así trabajamos con negocios
+          Así trabajamos con nuestros clientes
         </a>
         <a href={`${base}catalogo`} class="inline-flex items-center justify-center border-2 border-base-text text-base-text px-6 py-3 rounded-lg font-semibold hover:bg-base-text hover:text-white transition">
           Ver catálogo

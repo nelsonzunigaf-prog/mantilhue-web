@@ -5,13 +5,20 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Distribuidores — Mantilhue Alimentos"
-  description="Únete a la red de distribuidores de Mantilhue Alimentos. Marcas que rotan, stock que no falla y un partner que crece contigo."
+  description="Únete a la red de distribuidores de Mantilhue Alimentos. Marcas con trayectoria, abastecimiento estable y un proveedor que acompaña tu crecimiento en el tiempo."
 >
-  <section class="bg-base-surface py-12 md:py-16">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h1 class="font-heading font-bold text-3xl md:text-4xl mb-4">Buscamos distribuidores que quieran crecer con respaldo real</h1>
-      <p class="text-base-muted text-lg max-w-3xl mx-auto">
-        En Mantilhue sabemos que un buen distribuidor necesita más que buen precio. Necesita un proveedor que cumpla, que tenga stock y que lo respalde cuando su cliente le pide más.
+  <section class="relative overflow-hidden">
+    <img
+      src={`${base}images/gallery/camion-ruta.webp`}
+      alt="Camión Mantilhue en ruta"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
+    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-20 text-center">
+      <h1 class="font-heading font-bold text-3xl md:text-4xl text-white mb-4 drop-shadow-lg">Distribuidores que crecen con un proveedor de palabra</h1>
+      <p class="text-gray-100 text-lg max-w-3xl mx-auto drop-shadow">
+        En Mantilhue construimos relaciones de largo plazo con los distribuidores que mueven el país. Sabemos que detrás de cada pedido hay clientes que confían en que no vas a fallar, y por eso nosotros no fallamos contigo.
       </p>
     </div>
   </section>
@@ -20,9 +27,9 @@ const base = import.meta.env.BASE_URL;
     <!-- Beneficios -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
       {[
-        { title: 'Productos que se venden', desc: 'Marcas con trayectoria, formatos probados y rotación demostrada en el mercado chileno. No experimentamos contigo — te damos lo que funciona.' },
-        { title: 'Respaldo operativo real', desc: 'Cuando necesites más, tenemos. 3.000 m² de bodega, líneas de envasado y flota propia. Tu demanda crece y nosotros crecemos contigo.' },
-        { title: 'Relación de largo plazo', desc: 'No buscamos una venta. Buscamos un partner. Equipo comercial dedicado, condiciones claras y la flexibilidad para adaptarnos a tu mercado.' },
+        { title: 'Marcas con historia propia', desc: 'El Marqués, El Monarca y Carbón El Valle llevan años en los estantes chilenos. No experimentamos contigo: entregamos un portafolio consolidado, con rotación probada.' },
+        { title: 'Respaldo operativo real', desc: '3.000 m² de bodega, líneas de envasado certificadas y flota propia. Cuando tu demanda crece, nosotros crecemos contigo sin comprometer tiempos ni calidad.' },
+        { title: 'Relación de largo plazo', desc: 'Buscamos partners, no transacciones. Un equipo comercial dedicado, condiciones claras y la seriedad que distingue a quienes cumplen en el tiempo.' },
       ].map((item) => (
         <div class="bg-base-surface rounded-xl p-6">
           <h3 class="font-heading font-bold text-lg mb-2">{item.title}</h3>
@@ -34,8 +41,8 @@ const base = import.meta.env.BASE_URL;
     <!-- Formulario -->
     <div class="max-w-xl mx-auto">
       <h2 class="font-heading font-bold text-2xl mb-2 text-center">Cuéntanos sobre tu negocio</h2>
-      <p class="text-base-muted text-center mb-6">Completa tus datos y nuestro equipo comercial te contacta en menos de 48 horas.</p>
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
+      <p class="text-base-muted text-center mb-6">Completa tus datos y nuestro equipo comercial se pone en contacto contigo dentro de las próximas 48 horas para conversar con calma.</p>
+      <form action="https://formspree.io/f/mkoaoqok" method="POST" class="space-y-4">
         <div>
           <label for="nombre" class="block text-sm font-medium mb-1">Nombre y Apellido *</label>
           <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-2 border border-base-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marques" />

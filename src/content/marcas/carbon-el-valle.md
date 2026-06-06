@@ -1,13 +1,13 @@
 ---
 nombre: "Carbón El Valle"
 slug: "carbon-el-valle"
-descripcion: "15 años en el mercado hablan por sí solos. Carbón El Valle es quebracho blanco que rinde más, dura más y tus clientes vuelven a pedir. Un producto que ya tiene nombre propio en el mercado."
-descripcionCorta: "15 años de quebracho blanco que se vende solo."
+descripcion: "Más de quince años en el mercado nos avalan. Carbón El Valle es quebracho blanco de rendimiento superior, reconocido por los clientes que lo piden por nombre y por los negocios que lo incluyen temporada tras temporada en su oferta."
+descripcionCorta: "Más de 15 años de quebracho blanco con nombre propio en el mercado."
 beneficios:
-  - "Más de 15 años construyendo reputación"
+  - "Más de quince años construyendo reputación"
   - "Quebracho blanco de rendimiento superior"
-  - "El carbón que tus clientes piden por nombre"
-  - "Un clásico que sigue rotando temporada tras temporada"
+  - "Reconocido por los clientes que lo piden por nombre"
+  - "Un clásico que rota cada temporada sin fallar"
 logo: "/images/logos/carbon-el-valle.png"
 colorPrimario: "#4E342E"
 colorSecundario: "#6D4C41"
