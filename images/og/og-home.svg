@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Fondo -->
+  <rect width="1200" height="630" fill="#1a1a1a"/>
+
+  <!-- Franja verde lateral izquierda -->
+  <rect x="0" y="0" width="8" height="630" fill="#8BA83E"/>
+
+  <!-- Bloque de color verde decorativo -->
+  <rect x="680" y="0" width="520" height="630" fill="#8BA83E" opacity="0.12"/>
+
+  <!-- Espiga decorativa derecha -->
+  <g transform="translate(900, 80) scale(2.8)" fill="#8BA83E" stroke="#8BA83E" opacity="0.35">
+    <path d="M35 5 C 38 40, 38 80, 35 130" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="35" cy="12" rx="7" ry="12"/>
+    <ellipse cx="20" cy="30" rx="9" ry="16" transform="rotate(-28 20 30)"/>
+    <ellipse cx="50" cy="35" rx="9" ry="16" transform="rotate(28 50 35)"/>
+    <ellipse cx="18" cy="55" rx="9" ry="16" transform="rotate(-28 18 55)"/>
+    <ellipse cx="52" cy="60" rx="9" ry="16" transform="rotate(28 52 60)"/>
+    <ellipse cx="20" cy="80" rx="9" ry="16" transform="rotate(-28 20 80)"/>
+    <ellipse cx="50" cy="85" rx="9" ry="16" transform="rotate(28 50 85)"/>
+    <ellipse cx="25" cy="105" rx="9" ry="16" transform="rotate(-28 25 105)"/>
+    <ellipse cx="45" cy="110" rx="9" ry="16" transform="rotate(28 45 110)"/>
+  </g>
+
+  <!-- Logo M -->
+  <rect x="80" y="80" width="90" height="90" rx="16" fill="#8BA83E"/>
+  <text x="125" y="152" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="72" text-anchor="middle" fill="white">M</text>
+
+  <!-- Nombre empresa -->
+  <text x="80" y="240" font-family="Arial,sans-serif" font-weight="700" font-size="64" fill="white" letter-spacing="-1">Mantilhue</text>
+  <text x="80" y="300" font-family="Arial,sans-serif" font-weight="400" font-size="32" fill="#8BA83E" letter-spacing="8">ALIMENTOS</text>
+
+  <!-- Separador -->
+  <rect x="80" y="330" width="480" height="3" fill="#8BA83E" rx="2"/>
+
+  <!-- Tagline -->
+  <text x="80" y="390" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">Más de una década abasteciendo</text>
+  <text x="80" y="430" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">a los negocios que alimentan a Chile.</text>
+
+  <!-- Marcas -->
+  <text x="80" y="500" font-family="Arial,sans-serif" font-size="20" fill="#aaaaaa">El Marqués · El Monarca · Maitén · Carbón El Valle</text>
+
+  <!-- URL -->
+  <text x="80" y="570" font-family="Arial,sans-serif" font-size="18" fill="#666666">mantilhuealimentos.cl</text>
+</svg>
