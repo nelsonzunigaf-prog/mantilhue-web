@@ -1,0 +1,238 @@
+name: Security Gate
+
+# ══════════════════════════════════════════════════════════════════════
+#  Gate de seguridad — estándar de la firma
+#  Instalación de prueba · Fase A (informational): reporta, no bloquea.
+#
+#  ⚠️ TEMPORAL — versión autocontenida.
+#  Una vez validado acá, este archivo se reemplaza por una referencia al
+#  reusable workflow central:
+#
+#      jobs:
+#        gate:
+#          uses: nelsonzunigaf-prog/estandar-ci/.github/workflows/security-gate.yml@v1
+#          with:
+#            enforcement: blocking
+#            node_path: "."
+#            node_package_manager: npm
+#            semgrep_configs: "p/secrets"
+#
+#  Estándar completo: mesacreativa/estandar-sdlc/ESTANDAR-INGENIERIA.md
+#  Nivel de este proyecto: BASE (sitio estático, sin datos personales)
+#
+#  Ruta de promoción:
+#    Fase A  ← ESTÁS ACÁ. Correr, leer hallazgos, no bloquear.
+#    Fase B  rotar secretos reales · poblar .gitleaks.toml · remediar CVEs
+#    Fase C  enforcement: blocking + required status checks en master
+# ══════════════════════════════════════════════════════════════════════
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: "17 3 * * 1" # lunes 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # ── 1 · SECRETOS ──────────────────────────────────────────────
+  secretos:
+    name: Secretos (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      resultado: ${{ steps.gitleaks.outcome }}
+    steps:
+      - name: Checkout con historial completo
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          # Escanea TODO el historial: un secreto borrado de HEAD sigue
+          # siendo visible en los commits previos.
+          fetch-depth: 0
+
+      - name: Escaneo de secretos
+        id: gitleaks
+        continue-on-error: true # Fase A
+        shell: bash
+        run: |
+          CONFIG_ARG=""
+          if [ -f ".gitleaks.toml" ]; then
+            CONFIG_ARG="--config=/repo/.gitleaks.toml"
+            echo "Usando allowlist: .gitleaks.toml"
+          else
+            echo "Sin .gitleaks.toml — reglas por defecto."
+          fi
+
+          docker run --rm -v "${{ github.workspace }}:/repo" \
+            zricethezav/gitleaks:latest \
+            detect --source=/repo --redact --verbose --exit-code=1 $CONFIG_ARG
+
+      - name: Resumen
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Secretos"
+            echo ""
+            if [ "${{ steps.gitleaks.outcome }}" = "success" ]; then
+              echo "✓ Sin secretos detectados en el historial."
+            else
+              echo "⚠️ **Hallazgos.** Ver el log del paso."
+              echo ""
+              echo "Si son reales: **rotar la credencial** — borrar el commit no alcanza."
+              echo "Si son falsos positivos: agregarlos a \`.gitleaks.toml\`."
+            fi
+            echo ""
+            echo "Modo: \`informational\` (Fase A)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # ── 2 · DEPENDENCIAS ──────────────────────────────────────────
+  dependencias:
+    name: Dependencias vulnerables
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      node: ${{ steps.npm_audit.outcome }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Instalar dependencias
+        shell: bash
+        run: |
+          # --ignore-scripts evita ejecutar scripts de instalación de
+          # paquetes no confiables durante una auditoría.
+          npm ci --ignore-scripts
+
+      - name: Auditoría npm
+        id: npm_audit
+        continue-on-error: true # Fase A
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Resumen
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Dependencias"
+            echo ""
+            echo "- npm audit (nivel high, solo producción): \`${{ steps.npm_audit.outcome }}\`"
+            echo ""
+            echo "Modo: \`informational\` (Fase A)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # ── 3 · SAST ──────────────────────────────────────────────────
+  # Semgrep CE, no CodeQL: CodeQL es gratis solo en repos públicos; en
+  # privados exige GitHub Advanced Security (~USD 49/usuario/mes).
+  sast:
+    name: SAST (Semgrep)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: semgrep/semgrep:latest
+    outputs:
+      resultado: ${{ steps.semgrep.outcome }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Semgrep scan
+        id: semgrep
+        continue-on-error: true # Fase A
+        shell: bash
+        run: |
+          # Nivel BASE: solo detección de secretos en código.
+          semgrep scan --config p/secrets --error --verbose
+
+      - name: Resumen
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## SAST (Semgrep)"
+            echo ""
+            if [ "${{ steps.semgrep.outcome }}" = "success" ]; then
+              echo "✓ Sin hallazgos."
+            else
+              echo "⚠️ **Hallazgos.** Ver el log del paso."
+            fi
+            echo ""
+            echo "Rulesets: \`p/secrets\`"
+            echo "Modo: \`informational\` (Fase A)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # ── 4 · VEREDICTO ─────────────────────────────────────────────
+  # Hace visible lo que Fase A esconde: con continue-on-error, un paso
+  # que falla se reporta como success y el PR queda todo verde.
+  # Este job lee el outcome REAL y queda rojo cuando hay hallazgos.
+  # No bloquea el merge mientras no esté en los required status checks.
+  veredicto:
+    name: Veredicto del gate
+    runs-on: ubuntu-latest
+    needs: [secretos, dependencias, sast]
+    if: always()
+    timeout-minutes: 5
+    steps:
+      - name: Evaluar los tres controles
+        shell: bash
+        env:
+          SECRETOS: ${{ needs.secretos.outputs.resultado }}
+          NODE: ${{ needs.dependencias.outputs.node }}
+          SAST: ${{ needs.sast.outputs.resultado }}
+        run: |
+          set -uo pipefail
+          HALLAZGOS=0
+          : > detalle.md
+
+          evaluar() {
+            local nombre="$1" valor="${2:-}"
+            case "$valor" in
+              success)  echo "  OK  $nombre" ;;
+              skipped)  echo "  --  $nombre (no aplica)" ;;
+              failure)  echo "  XX  $nombre - HALLAZGOS"
+                        HALLAZGOS=$((HALLAZGOS+1))
+                        echo "- **$nombre**: hallazgos, ver el log del job" >> detalle.md ;;
+              *)        echo "  ??  $nombre - estado: ${valor:-vacio}"
+                        HALLAZGOS=$((HALLAZGOS+1))
+                        echo "- **$nombre**: estado inesperado o vacio" >> detalle.md ;;
+            esac
+          }
+
+          echo "Controles:"
+          evaluar "Secretos (gitleaks)"  "$SECRETOS"
+          evaluar "Dependencias Node"    "$NODE"
+          evaluar "SAST (Semgrep)"       "$SAST"
+          echo ""
+
+          { echo "# Veredicto del gate"; echo ""; echo "Modo: \`informational\` (Fase A)"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$HALLAZGOS" -eq 0 ]; then
+            echo "Gate limpio."
+            { echo "## Limpio"; echo ""; echo "Ningun control reporto hallazgos."; } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "::error title=Gate de seguridad con hallazgos::$HALLAZGOS control(es) reportaron hallazgos (Fase A: no bloquea el merge)"
+          {
+            echo "## $HALLAZGOS control(es) con hallazgos"
+            echo ""
+            cat detalle.md
+            echo ""
+            echo "> **Fase A - esto NO bloquea el merge.**"
+            echo "> Este job queda en rojo a proposito para que los hallazgos sean"
+            echo "> visibles. Mientras el gate no este en los *required status checks*,"
+            echo "> el merge sigue permitido."
+            echo ""
+            echo "**Siguiente paso (Fase B)**: remediar o registrar waiver con dueno y"
+            echo "fecha de vencimiento. Waiver sin ambos = bloqueo."
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
